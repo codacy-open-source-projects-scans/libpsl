@@ -1,5 +1,5 @@
 /*
- * Copyright(c) 2014-2022 Tim Ruehsen
+ * Copyright(c) 2014-2024 Tim Ruehsen
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -104,9 +104,13 @@ typedef SSIZE_T ssize_t;
 #	include <unistr.h>
 #endif
 
-#ifndef WINICONV_CONST
-#  define WINICONV_CONST
+#ifdef WINICONV_CONST
+#  define ICONV_CONST WINICONV_CONST
 #endif
+#ifndef ICONV_CONST
+#  define ICONV_CONST
+#endif
+
 
 #include <libpsl.h>
 
@@ -1835,7 +1839,7 @@ out:
 				if (!dst) {
 					ret = PSL_ERR_NO_MEM;
 				}
-				else if (iconv(cd, (WINICONV_CONST char **)&tmp, &tmp_len, &dst_tmp, &dst_len_tmp) != (size_t)-1
+				else if (iconv(cd, (ICONV_CONST char **)&tmp, &tmp_len, &dst_tmp, &dst_len_tmp) != (size_t)-1
 					&& iconv(cd, NULL, NULL, &dst_tmp, &dst_len_tmp) != (size_t)-1)
 				{
 					/* start size for u8_tolower internal memory allocation.
