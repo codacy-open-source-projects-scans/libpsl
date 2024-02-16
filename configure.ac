@@ -356,15 +356,12 @@ AC_ARG_WITH(psl-testfile,
   PSL_TESTFILE="\$(top_srcdir)/list/tests/tests.txt")
 AC_SUBST(PSL_TESTFILE)
 
-# check for alloca / alloca.h
-AC_FUNC_ALLOCA
-AC_CHECK_FUNCS([strndup clock_gettime fmemopen nl_langinfo])
+AC_CHECK_FUNCS([strdup strndup clock_gettime fmemopen nl_langinfo])
+AC_CHECK_DECLS([strdup])
+AC_CHECK_DECLS([localtime_r])
 
 # check for dirent.h
 AC_HEADER_DIRENT
-
-# strings.h may not exist on WIN32
-AC_CHECK_HEADERS([strings.h])
 
 # Override the template file name of the generated .pc file, so that there
 # is no need to rename the template file when the API version changes.
